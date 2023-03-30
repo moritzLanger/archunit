@@ -29,7 +29,7 @@ public class ArchitectureTest {
       .whereLayer("logic").mayOnlyBeAccessedByLayers("service", "batch")
       .whereLayer("dataaccess").mayOnlyBeAccessedByLayers("logic")
       .withOptionalLayers(true)
-          .because("Dependency of technical layers violates architecture rules.");
+          .because( "Dependency of technical layers violates architecture rules.");
   // ...
 
 }

@@ -66,7 +66,7 @@ public class NamingConventionTest {
               + javaClass.getSimpleName().replace("Eto", "");
           boolean hasCorrectInterface = javaClass.getInterfaces().stream()
               .anyMatch(i -> i.getName().equals(supposedInterfaceName));
-          String message = "The Testresult of " + javaClass.getSimpleName() + " was " + hasCorrectInterface;
+          String message = "The class or interface named " + javaClass.getSimpleName() + " has not implemented or been implemented by a class or interface with the same simple name";
           events.add(new SimpleConditionEvent(javaClass, hasCorrectInterface, message));
         }
       }).because(
@@ -105,7 +105,7 @@ public class NamingConventionTest {
   @ArchTest
   private static final ArchRule DevonJpaRepositoryCheck = classes().that().areAssignableTo(JpaRepository.class).should()
       .resideInAnyPackage("..dataaccess..").andShould().haveSimpleNameEndingWith("Repository")
-      .andShould(new ArchCondition<JavaClass>("check for the jpa naming structure to be valid", new Object() {
+      .andShould(new ArchCondition<JavaClass>("have the same name as the entity filled in the generic argument of JpaRepository excluding the Entity suffix", new Object() {
       }) {
         @Override
         public void check(JavaClass javaClass, ConditionEvents events) {
@@ -120,7 +120,8 @@ public class NamingConventionTest {
               hasCorrectName = javaClass.getFullName().equals(enitiyName + "Repository");
             }
           }
-          events.add(new SimpleConditionEvent(javaClass, hasCorrectName, "message"));
+          String message = "The Class named" + javaClass.getSimpleName() + " does not have the same Simple name as the entity filled in the generic argument of JpaRepository excluding the Entity suffix";
+          events.add(new SimpleConditionEvent(javaClass, hasCorrectName, message));
         }
       });
 
