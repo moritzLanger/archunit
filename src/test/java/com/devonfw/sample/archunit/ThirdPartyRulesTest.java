@@ -30,18 +30,18 @@ public class ThirdPartyRulesTest {
   @ArchTest
   public static ArchRule check_object_dependency = noClasses().should().dependOnClassesThat()
       .haveFullyQualifiedName("com.google.common.base.Objects")
-      .because("Use Java standards instead (java.util.Objects).");
+           .because("the Java standards should be used instead (java.util.Objects).");
 
   @ArchTest
   public static ArchRule check_converter_dependency = noClasses().should().dependOnClassesThat()
       .haveFullyQualifiedName("javax.persistence.Convert")
-      .because("Use the javax.persistence.Converter annotation on a custom converter"
+      .because("the javax.persistence.Converter annotation should be used on a custom converter"
           + " which implements the javax.persistence.AttributeConverter instead of the 'javax.persistance.Convert' annotation");
 
   @ArchTest
   public static ArchRule check_mysema_dependency = noClasses().should().dependOnClassesThat()
       .resideInAPackage("com.mysema.query..")
-      .because("Use official QueryDSL (com.querydsl.* e.g. from com.querydsl:querydsl-jpa).");
+      .because("the official QueryDSL should be used (com.querydsl.* e.g. from com.querydsl:querydsl-jpa).");
 
   private static boolean isApiScopedClassUsingTransactional(JavaClass source, String targetPackageFullName) {
 
